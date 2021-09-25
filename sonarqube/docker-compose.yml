@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+  sonarqube:
+    image: docker.io/sonarqube
+    container_name: sonarqube
+    ports:
+    - 10000:9000
+    environment:
+      - sonar.jdbc.username=root
+      - sonar.jdbc.password=123456
+      - sonar.jdbc.url=jdbc:mysql://172.19.0.3:3306/sonarqube?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true&useConfigs=maxPerformance&useSSL=false
+    restart: always
+    
+
+networks:
+  default:
+    external:
+      name: dockerfiles_tools_docknet

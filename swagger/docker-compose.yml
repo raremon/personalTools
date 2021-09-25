@@ -1,0 +1,18 @@
+version: '2'
+
+services:
+  swaggerui:
+    image: swaggerapi/swagger-ui
+    container_name: swaggerui
+    volumes:
+    - ~/Documents/projects/tools/swagger/imagefiles:/mnt
+    environment:
+    - SWAGGER_JSON=~/Documents/projects/codebase/star8glab/apidocs/swagger.json
+    ports:
+    - 8000:8080
+    restart: always
+
+networks:
+  default:
+    external:
+      name: tools_docknet

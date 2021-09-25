@@ -1,0 +1,59 @@
+version: '2'
+
+services:
+  mysqldb:
+    image: docker.io/mysql:5.7
+    container_name: mysqldb
+    command: --max_allowed_packet=32505856
+    volumes:
+      - /home/raremon/Documents/Database/localmysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+    privileged: true
+    restart: always
+    ports:
+      - 3306:3306
+    networks:
+      docknet:
+        ipv4_address: 10.100.0.2
+
+  sonarqube:
+    image: docker.io/sonarqube
+    container_name: sonarqube
+    expose:
+    - 10000
+    ports:
+      - 10000:9000
+    environment:
+      - sonar.jdbc.username=root
+      - sonar.jdbc.password=123456
+      - sonar.jdbc.url=jdbc:mysql://10.100.0.2:3306/sonarqube?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true&useConfigs=maxPerformance&useSSL=false
+    restart: always
+    networks:
+      docknet:
+        ipv4_address: 10.100.0.3
+    depends_on:
+      - mysqldb
+
+  jenkins:
+    image: docker.io/jenkins/jenkins
+    container_name: jenkins
+    volumes:
+      - /home/raremon/Documents/projects/tools/jenkins/imagefiles:/var/jenkins_home
+    ports:
+      - 8080:8080
+    restart: always
+    privileged: true
+    depends_on:
+      - mysqldb
+    networks:
+      docknet:
+        ipv4_address: 10.100.0.4
+
+networks:
+  docknet:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.100.0.0/16
+          gateway: 10.100.0.1

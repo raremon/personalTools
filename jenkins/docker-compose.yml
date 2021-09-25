@@ -1,0 +1,17 @@
+version: '2'
+
+services:
+  jenkins:
+    image: docker.io/jenkins/jenkins
+    container_name: jenkins
+    volumes:
+    - /home/raremon/Documents/projects/tools/jenkins/imagefiles:/var/jenkins_home
+    ports:
+    - 8080:8080
+    privileged: true
+    restart: always
+
+networks:
+  default:
+    external:
+      name: dockerfiles_tools_docknet
