@@ -7,7 +7,7 @@ services:
     volumes:
     - ~/Documents/projects/tools/swagger/imagefiles:/mnt
     environment:
-    - SWAGGER_JSON=~/Documents/projects/codebase/star8glab/apidocs/swagger.json
+    - SWAGGER_JSON=~/Documents/projects/codebase/swagger.json
     ports:
     - 8000:8080
     restart: always
@@ -15,4 +15,4 @@ services:
 networks:
   default:
     external:
-      name: tools_docknet
+      name: dockerfiles_tools_docknet
