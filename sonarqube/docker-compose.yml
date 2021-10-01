@@ -9,7 +9,7 @@ services:
     environment:
       - sonar.jdbc.username=root
       - sonar.jdbc.password=123456
-      - sonar.jdbc.url=jdbc:mysql://172.19.0.3:3306/sonarqube?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true&useConfigs=maxPerformance&useSSL=false
+      - sonar.jdbc.url=jdbc:mysql://mysqldb:3306/sonarqube?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true&useConfigs=maxPerformance&useSSL=false
     restart: always
     
 
