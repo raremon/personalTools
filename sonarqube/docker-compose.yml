@@ -1,17 +1,23 @@
-version: '2'
+version: '3'
 
 services:
   sonarqube:
-    image: docker.io/sonarqube
+    platform: linux/x86_64
+    image: sonarqube:community
     container_name: sonarqube
     ports:
-    - 10000:9000
+    - 9000:9000
     environment:
-      - sonar.jdbc.username=root
-      - sonar.jdbc.password=123456
-      - sonar.jdbc.url=jdbc:mysql://mysqldb:3306/sonarqube?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true&useConfigs=maxPerformance&useSSL=false
+      - sonar.search.javaAdditionalOpts=-Dbootstrap.system_call_filter=false
+      - sonar.ce.javaOpts=-Xmx2048m
+      - sonar.jdbc.username=postgres
+      - sonar.jdbc.password=example
+      - sonar.jdbc.url=jdbc:postgresql://postgres:5432/sonarqube?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true&useConfigs=maxPerformance&useSSL=false
     restart: always
-    
+    volumes:
+      - ~/Documents/applicationData/sonarqube/data:/opt/sonarqube/data
+      - ~/Documents/applicationData/sonarqube/extensions:/opt/sonarqube/extensions
+      - ~/Documents/applicationData/sonarqube/logs:/opt/sonarqube/logs
 
 networks:
   default:

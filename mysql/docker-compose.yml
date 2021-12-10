@@ -2,11 +2,12 @@ version: '2'
 
 services:
   mysqldb:
+    platform: linux/x86_64
     image: docker.io/mysql:5.7
     container_name: mysqldb
     command: --max_allowed_packet=32505856
     volumes:
-      - /home/raremon/Documents/Database/localmysql:/var/lib/mysql
+      - ~/Documents/applicationData/Database/localmysql:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=123456
     privileged: true
