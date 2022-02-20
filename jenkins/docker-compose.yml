@@ -5,7 +5,7 @@ services:
     image: docker.io/jenkins/jenkins
     container_name: jenkins
     volumes:
-    - /home/raremon/Documents/projects/tools/jenkins/imagefiles:/var/jenkins_home
+    - ~/Documents/projects/tools/jenkins/imagefiles:/var/jenkins_home
     ports:
     - 8080:8080
     privileged: true
